@@ -449,6 +449,21 @@
             flex: 1;
         }
 
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--soft-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--coral);
+        }
+
         .transport-route {
             font-weight: 600;
             color: var(--charcoal);
@@ -497,6 +512,10 @@
 </head>
 <body>
     <div class="container">
+        <a href="index.html" class="back-link">
+            <span>←</span> Back to All Trips
+        </a>
+        
         <header>
             <div class="trip-label">¡Vámonos!</div>
             <h1>México · Yucatán</h1>
