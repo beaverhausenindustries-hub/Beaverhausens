@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mexico Yucatán Trip | January 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cream: #FDF8F3;
+            --warm-white: #FFFDFB;
+            --coral: #E07A5F;
+            --deep-teal: #2A6B6B;
+            --gold: #D4A72E;
+            --charcoal: #2C2C2C;
+            --soft-gray: #8B8680;
+            --border: #E8DFD5;
+            --sand: #F5E6D3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .trip-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--coral);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--deep-teal);
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .trip-meta {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            color: var(--soft-gray);
+            font-size: 15px;
+        }
+
+        .trip-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .trip-meta strong {
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-bottom: 56px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--deep-teal);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        #map {
+            height: 400px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            background: #D4E8E8;
+            overflow: hidden;
+        }
+
+        .map-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .land {
+            fill: #C8D4B8;
+            stroke: #A8B898;
+            stroke-width: 1;
+        }
+
+        .yucatan {
+            fill: #E8DFC8;
+        }
+
+        .route-line {
+            fill: none;
+            stroke: var(--coral);
+            stroke-width: 3;
+            stroke-dasharray: 8, 6;
+            stroke-linecap: round;
+        }
+
+        .city-marker {
+            cursor: pointer;
+        }
+
+        .city-dot {
+            fill: var(--deep-teal);
+            stroke: white;
+            stroke-width: 3;
+        }
+
+        .city-dot.highlight {
+            fill: var(--coral);
+        }
+
+        .city-label {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            fill: var(--charcoal);
+        }
+
+        .city-dates {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 11px;
+            fill: var(--soft-gray);
+        }
+
+        .region-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            fill: var(--soft-gray);
+            opacity: 0.5;
+            letter-spacing: 4px;
+        }
+
+        .water {
+            fill: #A8D4D4;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 140px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--coral), var(--deep-teal));
+            opacity: 0.3;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+        }
+
+        .day-block {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .day-block {
+                grid-template-columns: 1fr;
+                padding-left: 48px;
+                gap: 12px;
+            }
+        }
+
+        .day-date {
+            text-align: right;
+            padding-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .day-date {
+                text-align: left;
+            }
+        }
+
+        .day-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--deep-teal);
+            line-height: 1;
+        }
+
+        .day-weekday {
+            font-size: 13px;
+            color: var(--soft-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .day-content {
+            position: relative;
+        }
+
+        .day-content::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 12px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--warm-white);
+            border: 3px solid var(--coral);
+        }
+
+        @media (max-width: 768px) {
+            .day-content::before {
+                left: -36px;
+            }
+        }
+
+        .day-card {
+            background: var(--warm-white);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .day-card.flight {
+            background: linear-gradient(135deg, var(--deep-teal), #3A8080);
+            color: white;
+            border: none;
+        }
+
+        .day-card.flight .location-tag {
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .day-card.flight .card-title {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+        }
+
+        .day-card.flight .card-detail {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .location-tag {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--deep-teal);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 13px;
+            color: var(--soft-gray);
+            margin-bottom: 6px;
+            font-weight: 400;
+        }
+
+        .card-detail {
+            font-size: 14px;
+            color: var(--soft-gray);
+            margin-bottom: 4px;
+        }
+
+        .card-detail strong {
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+
+        .card-price {
+            display: inline-block;
+            margin-top: 12px;
+            font-weight: 600;
+            color: var(--deep-teal);
+            font-size: 1.1rem;
+        }
+
+        .confirmation {
+            font-size: 12px;
+            color: var(--soft-gray);
+            margin-top: 8px;
+            font-family: monospace;
+        }
+
+        /* Summary Footer */
+        .summary {
+            margin-top: 64px;
+            padding: 32px;
+            background: var(--warm-white);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--soft-gray);
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--deep-teal);
+        }
+
+        /* Notes */
+        .notes {
+            margin-top: 40px;
+            padding: 24px;
+            background: #FEF9E7;
+            border-left: 4px solid var(--gold);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .notes-title {
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .notes p {
+            font-size: 14px;
+            color: var(--soft-gray);
+        }
+
+        /* Transportation indicators */
+        .transport-block {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .transport-block {
+                grid-template-columns: 1fr;
+                padding-left: 48px;
+                gap: 12px;
+            }
+        }
+
+        .transport-spacer {
+            /* empty column */
+        }
+
+        .transport-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #FFF8F0;
+            border: 2px dashed var(--gold);
+            border-radius: 8px;
+            padding: 12px 16px;
+            position: relative;
+        }
+
+        .transport-card::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .transport-card::before {
+                left: -36px;
+            }
+        }
+
+        .transport-icon {
+            font-size: 1.25rem;
+        }
+
+        .transport-info {
+            flex: 1;
+        }
+
+        .transport-route {
+            font-weight: 600;
+            color: var(--charcoal);
+            font-size: 14px;
+        }
+
+        .transport-meta {
+            font-size: 12px;
+            color: var(--soft-gray);
+        }
+
+        .transport-tag {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: var(--gold);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        /* WiFi Box */
+        .wifi-box {
+            margin-top: 16px;
+            padding: 12px 14px;
+            background: var(--sand);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .wifi-box .wifi-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--soft-gray);
+            margin-bottom: 6px;
+        }
+
+        .wifi-box .wifi-detail {
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--charcoal);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="trip-label">¡Vámonos!</div>
+            <h1>México · Yucatán</h1>
+            <div class="trip-meta">
+                <span><strong>January 17–23, 2026</strong></span>
+                <span>•</span>
+                <span><strong>7 Days</strong></span>
+                <span>•</span>
+                <span><strong>7 Travelers</strong></span>
+            </div>
+        </header>
+
+        <section class="map-section">
+            <h2 class="section-title">Route Map</h2>
+            <div id="map">
+                <svg class="map-svg" viewBox="0 0 500 350" preserveAspectRatio="xMidYMid meet">
+                    <!-- Water (Caribbean Sea & Gulf of Mexico) -->
+                    <rect class="water" x="0" y="0" width="500" height="350"/>
+                    
+                    <!-- Yucatan Peninsula -->
+                    <path class="land yucatan" d="M 50,50 L 180,30 L 350,40 L 420,100 L 450,180 L 420,250 L 350,300 L 280,320 L 200,310 L 120,280 L 80,220 L 60,150 L 50,50 Z"/>
+                    
+                    <!-- Guatemala/Belize hint -->
+                    <path class="land" d="M 50,220 L 80,220 L 120,280 L 80,320 L 30,300 Z"/>
+                    
+                    <!-- Region label -->
+                    <text class="region-label" x="220" y="140" text-anchor="middle">YUCATÁN</text>
+                    
+                    <!-- Route line: Cancún → Mérida → Valladolid → Cancún -->
+                    <path class="route-line" d="M 400,130 L 140,180 L 290,200 L 400,130"/>
+                    
+                    <!-- City: Cancún (Airport) -->
+                    <g class="city-marker">
+                        <circle class="city-dot" cx="400" cy="130" r="8"/>
+                        <text class="city-label" x="400" y="115" text-anchor="middle">Cancún</text>
+                        <text class="city-dates" x="400" y="155" text-anchor="middle">✈ Fly in/out</text>
+                    </g>
+                    
+                    <!-- City: Mérida -->
+                    <g class="city-marker">
+                        <circle class="city-dot highlight" cx="140" cy="180" r="12"/>
+                        <text class="city-label" x="140" y="210">Mérida</text>
+                        <text class="city-dates" x="140" y="223">Jan 17–20</text>
+                    </g>
+                    
+                    <!-- City: Valladolid -->
+                    <g class="city-marker">
+                        <circle class="city-dot highlight" cx="290" cy="200" r="12"/>
+                        <text class="city-label" x="290" y="230">Valladolid</text>
+                        <text class="city-dates" x="290" y="243">Jan 20–23</text>
+                    </g>
+                    
+                    <!-- Chichén Itzá marker (attraction) -->
+                    <g class="city-marker" opacity="0.6">
+                        <text x="220" y="180" font-size="16">🏛️</text>
+                        <text class="city-dates" x="240" y="183">Chichén Itzá</text>
+                    </g>
+                    
+                    <!-- Cenotes hint -->
+                    <g opacity="0.5">
+                        <text x="320" y="240" font-size="14">💧</text>
+                        <text class="city-dates" x="340" y="243" font-size="10">Cenotes</text>
+                    </g>
+
+                    <!-- Map legend -->
+                    <g transform="translate(20, 280)">
+                        <rect x="0" y="0" width="140" height="55" rx="6" fill="white" fill-opacity="0.9"/>
+                        <circle cx="20" cy="18" r="7" fill="#E07A5F" stroke="white" stroke-width="2"/>
+                        <text x="35" y="22" font-size="11" fill="#2C2C2C" font-family="Source Sans 3">Stays</text>
+                        <circle cx="20" cy="40" r="5" fill="#2A6B6B" stroke="white" stroke-width="2"/>
+                        <text x="35" y="44" font-size="11" fill="#2C2C2C" font-family="Source Sans 3">Airport</text>
+                    </g>
+                </svg>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Day by Day</h2>
+            
+            <div class="timeline">
+                <!-- Sat, Jan 17: Travel & Mérida -->
+                <div class="day-block">
+                    <div class="day-date">
+                        <div class="day-num">17</div>
+                        <div class="day-weekday">Sat, Jan</div>
+                    </div>
+                    <div class="day-content">
+                        <div class="day-card flight">
+                            <div class="location-tag">✈ Travel Day</div>
+                            <div class="card-title">Minneapolis → Cancún</div>
+                            <div class="card-detail">Depart MSP 6:27am (Terminal 1) → Arrive CUN 11:40am (Terminal 3)</div>
+                            <div class="card-detail">Delta DL0399 • Boeing 737-900 • Nonstop • 4h 13m</div>
+                            <div class="card-detail" style="margin-top: 8px;">Passengers: Anthony, Asher, Charles, Samuel</div>
+                            <div class="confirmation">Confirmation: G5PUU7</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transport: Cancún → Mérida -->
+                <div class="transport-block">
+                    <div class="transport-spacer"></div>
+                    <div class="transport-card">
+                        <div class="transport-icon">🚐</div>
+                        <div class="transport-info">
+                            <div class="transport-route">Cancún Airport → Mérida</div>
+                            <div class="transport-meta">Private 8-passenger van • ~3.5 hrs • Pickup at CUN Airport</div>
+                            <div class="transport-meta" style="font-size: 11px; margin-top: 4px; color: #2E7D32;">✓ Booked: GYGMX4Y9BX28 • PIN: JjdS5m/r</div>
+                        </div>
+                        <div class="transport-tag" style="background: #E8F4E8; color: #2E7D32;">🚐 Private</div>
+                    </div>
+                </div>
+
+                <!-- Jan 17-20: Mérida -->
+                <div class="day-block">
+                    <div class="day-date">
+                        <div class="day-num">17–19</div>
+                        <div class="day-weekday">Sat–Mon</div>
+                    </div>
+                    <div class="day-content">
+                        <div class="day-card">
+                            <div class="location-tag">🇲🇽 Mérida</div>
+                            <div class="card-title">Casa Mariposa, Breathtaking 5BR Home of Your Dreams <a href="https://www.google.com/maps/search/485+Calle+78+Centro+Merida+Mexico" target="_blank" style="color: var(--coral); text-decoration: none; font-size: 0.8em;">📍</a></div>
+                            <div class="card-detail">January 17–20 • <strong>3 nights</strong></div>
+                            <div class="card-detail">5 Bedrooms • 7 adults</div>
+                            <div class="card-detail">485 Calle 78 Centro, Merida, YUC, 97000</div>
+                            <div class="card-detail">Check-in: <strong>3:00pm</strong> • Check-out: <strong>11:00am</strong></div>
+                            <div class="confirmation">Vrbo: HA-HDM1NY</div>
+                            
+                            <div class="wifi-box">
+                                <div class="wifi-label">📶 WiFi</div>
+                                <div class="wifi-detail">Network: <strong>Casa Mariposa</strong></div>
+                                <div class="wifi-detail">Password: <strong>byf48578</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transport: Mérida → Valladolid -->
+                <div class="transport-block">
+                    <div class="transport-spacer"></div>
+                    <div class="transport-card">
+                        <div class="transport-icon">🚐</div>
+                        <div class="transport-info">
+                            <div class="transport-route">Mérida → Valladolid</div>
+                            <div class="transport-meta">~160 km • ~2 hrs drive via Hwy 180D • Pass by Chichén Itzá!</div>
+                            <div class="transport-meta" style="font-size: 11px; margin-top: 4px; color: #E07A5F;">⏳ Private driver to book</div>
+                        </div>
+                        <div class="transport-tag" style="background: #FFF3E0; color: #E65100;">To Book</div>
+                    </div>
+                </div>
+
+                <!-- Jan 20-23: Valladolid -->
+                <div class="day-block">
+                    <div class="day-date">
+                        <div class="day-num">20–22</div>
+                        <div class="day-weekday">Tue–Thu</div>
+                    </div>
+                    <div class="day-content">
+                        <div class="day-card">
+                            <div class="location-tag">🇲🇽 Valladolid</div>
+                            <div class="card-title">Luxe Oasis w/ Private Pool, Waterfall, Yoga & Hammock Garden <a href="https://www.google.com/maps/search/204+J+Calle+53+Valladolid+Mexico" target="_blank" style="color: var(--coral); text-decoration: none; font-size: 0.8em;">📍</a></div>
+                            <div class="card-detail">January 20–23 • <strong>3 nights</strong></div>
+                            <div class="card-detail">Sleeps 12 • 7 adults</div>
+                            <div class="card-detail">204 J, Calle 53, Valladolid, YUC, 97784</div>
+                            <div class="card-detail">Check-in: <strong>4:00pm</strong> • Check-out: <strong>11:00am</strong></div>
+                            <div class="confirmation">Vrbo • Booked by Jennifer</div>
+                            
+                            <div style="margin-top: 16px; padding: 12px 14px; background: linear-gradient(135deg, #D4A72E 0%, #E8C547 100%); border-radius: 8px; color: white;">
+                                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.9; margin-bottom: 4px;">🐝 Confirmed Activity • Wed, Jan 21</div>
+                                <div style="font-weight: 600; font-size: 15px;">Xkopek Mayan Bees Tour & Honey Tasting</div>
+                                <div style="font-size: 13px; opacity: 0.95;">8:30am • 1.5 hours • 3 adults + 4 children</div>
+                                <div style="font-size: 12px; opacity: 0.85; margin-top: 4px;">Calle 57 x 36 y 38, San Juan • Arrive by 8:25am</div>
+                                <div style="font-size: 11px; opacity: 0.8; margin-top: 4px; font-family: monospace;">Ref: GYGZGZ9GF4RK • PIN: WxHR#BrM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transport: Valladolid → Cancún -->
+                <div class="transport-block">
+                    <div class="transport-spacer"></div>
+                    <div class="transport-card">
+                        <div class="transport-icon">🚂</div>
+                        <div class="transport-info">
+                            <div class="transport-route">Valladolid → Cancún Airport</div>
+                            <div class="transport-meta">Tren Maya option! Valladolid station → Cancún Airport station</div>
+                            <div class="transport-meta" style="font-size: 11px; margin-top: 4px; color: #E07A5F;">⏳ Check schedules at trenmaya.gob.mx • Flight at 1:50pm</div>
+                        </div>
+                        <div class="transport-tag" style="background: #FFF3E0; color: #E65100;">To Book</div>
+                    </div>
+                </div>
+
+                <!-- Fri, Jan 23: Return -->
+                <div class="day-block">
+                    <div class="day-date">
+                        <div class="day-num">23</div>
+                        <div class="day-weekday">Fri, Jan</div>
+                    </div>
+                    <div class="day-content">
+                        <div class="day-card flight">
+                            <div class="location-tag">✈ Travel Day</div>
+                            <div class="card-title">Cancún → Minneapolis</div>
+                            <div class="card-detail">Depart CUN 1:50pm (Terminal 3) → Arrive MSP 5:11pm (Terminal 1)</div>
+                            <div class="card-detail">Delta DL2011 • Boeing 737-900 • Nonstop • 4h 21m</div>
+                            <div class="card-detail" style="margin-top: 8px;">Seats: 22C, 22D, 22E, 22F</div>
+                            <div class="confirmation">Confirmation: G5PUU7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <div class="summary">
+            <div class="summary-item">
+                <div class="summary-label">Total Duration</div>
+                <div class="summary-value">7 Days</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">Confirmed</div>
+                <div class="summary-value">6 Nights</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">Accommodations</div>
+                <div class="summary-value">2 Properties</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">Destinations</div>
+                <div class="summary-value">2 Cities</div>
+            </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="notes">
+            <div class="notes-title">🚗 Transport Notes</div>
+            <p style="margin-bottom: 12px;"><strong>✓ CUN → Mérida:</strong> Private van transfer booked (GetYourGuide). Pickup at Cancún International Airport.</p>
+            <p style="margin-bottom: 12px;"><strong>⏳ Mérida → Valladolid:</strong> Private driver to book. ~2 hrs. Could add Chichén Itzá stop en route.</p>
+            <p style="margin-bottom: 12px;"><strong>⏳ Valladolid → CUN Airport:</strong> Considering Tren Maya! The new train has a station in Valladolid and one at Cancún Airport (Terminal 2). Check schedules at <a href="https://www.trenmaya.gob.mx" target="_blank" style="color: var(--coral);">trenmaya.gob.mx</a>. Flight departs 1:50pm—allow 3+ hrs buffer.</p>
+        </div>
+
+        <!-- Documents Section -->
+        <div class="section-title" style="margin-top: 48px;">
+            <span>📄</span> Travel Documents
+        </div>
+        <div style="background: var(--warm-white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                <thead>
+                    <tr style="background: var(--deep-teal); color: white;">
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 500;">Document</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 500;">Details</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 500;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 16px; font-weight: 500;">✈️ Flight Confirmation</td>
+                        <td style="padding: 12px 16px; color: var(--soft-gray);">Delta • MSP↔CUN • 4 passengers • Conf# G5PUU7</td>
+                        <td style="padding: 12px 16px; color: #2E7D32; font-weight: 500;">✓ Confirmed</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 16px; font-weight: 500;">🏠 Mérida Rental</td>
+                        <td style="padding: 12px 16px; color: var(--soft-gray);">Casa Mariposa • Jan 17-20 • Vrbo HA-HDM1NY</td>
+                        <td style="padding: 12px 16px; color: #2E7D32; font-weight: 500;">✓ Confirmed</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 16px; font-weight: 500;">🏠 Valladolid Rental</td>
+                        <td style="padding: 12px 16px; color: var(--soft-gray);">Luxe Oasis • Jan 20-23 • Booked by Jennifer</td>
+                        <td style="padding: 12px 16px; color: #2E7D32; font-weight: 500;">✓ Confirmed</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 16px; font-weight: 500;">🚐 CUN → Mérida Transfer</td>
+                        <td style="padding: 12px 16px; color: var(--soft-gray);">Private Van • Jan 17 • Ref# GYGMX4Y9BX28</td>
+                        <td style="padding: 12px 16px; color: #2E7D32; font-weight: 500;">✓ Confirmed</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 16px; font-weight: 500;">🐝 Xkopek Mayan Bees Tour</td>
+                        <td style="padding: 12px 16px; color: var(--soft-gray);">Jan 21 @ 8:30am • Ref# GYGZGZ9GF4RK</td>
+                        <td style="padding: 12px 16px; color: #2E7D32; font-weight: 500;">✓ Confirmed</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 16px; font-weight: 500;">🚐 Mérida → Valladolid</td>
+                        <td style="padding: 12px 16px; color: var(--soft-gray);">Private driver • Jan 20</td>
+                        <td style="padding: 12px 16px; color: var(--coral); font-weight: 500;">⏳ To Book</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 16px; font-weight: 500;">🚂 Valladolid → CUN Airport</td>
+                        <td style="padding: 12px 16px; color: var(--soft-gray);">Tren Maya? • Jan 23</td>
+                        <td style="padding: 12px 16px; color: var(--coral); font-weight: 500;">⏳ To Book</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Day Trip Ideas -->
+        <div class="section-title" style="margin-top: 48px;">
+            <span>🗺️</span> Day Trip Ideas
+        </div>
+        
+        <div style="background: var(--warm-white); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <h3 style="font-family: 'Playfair Display', serif; color: var(--deep-teal); margin-bottom: 16px; font-size: 1.1rem;">From Mérida</h3>
+            <ul style="margin: 8px 0 0 20px; color: var(--charcoal); line-height: 1.8;">
+                <li><strong>Uxmal</strong> – Stunning Mayan ruins, less crowded than Chichén Itzá. ~80 km south, ~1.5 hr drive. UNESCO World Heritage Site with incredible Puuc architecture.</li>
+                <li><strong>Celestún</strong> – Biosphere reserve with flamingos! Boat tours through mangroves. ~100 km west, ~1.5 hr drive. Best Dec-April.</li>
+                <li><strong>Progreso Beach</strong> – Closest beach to Mérida. ~40 km north, ~45 min drive. Casual beach day with fresh seafood.</li>
+                <li><strong>Cenotes near Mérida</strong> – Cenote Xlacah (at Dzibilchaltún ruins), Cenote Cuzamá (3 cenotes by horse cart), Cenote Santa Barbara.</li>
+            </ul>
+        </div>
+
+        <div style="background: var(--warm-white); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <h3 style="font-family: 'Playfair Display', serif; color: var(--deep-teal); margin-bottom: 16px; font-size: 1.1rem;">From Valladolid</h3>
+            <ul style="margin: 8px 0 0 20px; color: var(--charcoal); line-height: 1.8;">
+                <li><strong>Chichén Itzá</strong> – The famous pyramid! Only ~45 km, ~40 min drive. Go early (opens 8am) to beat crowds and heat.</li>
+                <li><strong>Cenote Ik Kil</strong> – Iconic swimming cenote near Chichén Itzá. Can combine in same day trip.</li>
+                <li><strong>Cenote Suytun</strong> – Instagram-famous cenote with light beam. ~10 min from Valladolid.</li>
+                <li><strong>Ek Balam</strong> – Lesser-known Mayan ruins you can still climb. ~30 km north, ~30 min. Has an incredible cenote nearby (Cenote X'Canché).</li>
+                <li><strong>Las Coloradas</strong> – Pink lakes! ~170 km, 2+ hrs. Long drive but stunning photos.</li>
+            </ul>
+        </div>
+
+        <!-- Yucatecan Food -->
+        <div class="section-title" style="margin-top: 48px;">
+            <span>🍽️</span> Yucatecan Food to Try
+        </div>
+        <div style="background: var(--warm-white); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                <div style="padding: 10px; background: var(--sand); border-radius: 8px;">
+                    <strong>Cochinita Pibil</strong> – Slow-roasted pork in achiote (red paste), wrapped in banana leaves. THE signature Yucatecan dish.
+                </div>
+                <div style="padding: 10px; background: var(--sand); border-radius: 8px;">
+                    <strong>Papadzules</strong> – Tortillas dipped in pepita (pumpkin seed) sauce, filled with eggs, topped with tomato sauce.
+                </div>
+                <div style="padding: 10px; background: var(--sand); border-radius: 8px;">
+                    <strong>Sopa de Lima</strong> – Lime soup with shredded chicken/turkey, fried tortilla strips. Tangy and comforting.
+                </div>
+                <div style="padding: 10px; background: var(--sand); border-radius: 8px;">
+                    <strong>Panuchos</strong> – Fried tortillas stuffed with black beans, topped with turkey, pickled onion, avocado.
+                </div>
+                <div style="padding: 10px; background: var(--sand); border-radius: 8px;">
+                    <strong>Salbutes</strong> – Like panuchos but puffy, not stuffed. Topped with turkey, lettuce, tomato, pickled onion.
+                </div>
+                <div style="padding: 10px; background: var(--sand); border-radius: 8px;">
+                    <strong>Poc Chuc</strong> – Grilled pork marinated in sour orange, served with pickled onions.
+                </div>
+                <div style="padding: 10px; background: var(--sand); border-radius: 8px;">
+                    <strong>Queso Relleno</strong> – Edam cheese stuffed with ground meat, covered in two sauces.
+                </div>
+                <div style="padding: 10px; background: var(--sand); border-radius: 8px;">
+                    <strong>Marquesitas</strong> – Street dessert: crispy rolled wafer filled with Nutella, cajeta, or cheese.
+                </div>
+            </div>
+        </div>
+
+        <!-- Practical Tips -->
+        <div class="section-title" style="margin-top: 48px;">
+            <span>💡</span> Practical Tips
+        </div>
+        <div style="background: var(--warm-white); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+            <ul style="margin: 0 0 0 20px; color: var(--charcoal); line-height: 2;">
+                <li><strong>Currency:</strong> Mexican Pesos (MXN). ATMs everywhere. Cards widely accepted but carry cash for small vendors.</li>
+                <li><strong>Weather:</strong> January is dry season! Expect 75-85°F (24-29°C). Bring sunscreen and light layers for A/C.</li>
+                <li><strong>Cenotes:</strong> Bring biodegradable sunscreen (regular sunscreen harms the ecosystems). Some cenotes require it.</li>
+                <li><strong>Driving:</strong> Toll roads are worth it—faster and safer. Watch for topes (speed bumps) in towns.</li>
+                <li><strong>Time Zone:</strong> Central Standard Time (CST) – same as Minnesota in January!</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
