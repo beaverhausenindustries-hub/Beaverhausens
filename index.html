@@ -37,6 +37,21 @@
             align-items: center;
             justify-content: center;
             padding: 40px 24px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('images/AJCover.jpg');
+            background-size: cover;
+            background-position: center top;
+            opacity: 0.15;
+            z-index: -1;
         }
 
         .container {
@@ -169,12 +184,12 @@
                 <div class="trip-arrow">→</div>
             </a>
 
-            <a href="mexico.html" class="trip-card coming-soon">
+            <a href="mexico-yucatan.html" class="trip-card">
                 <div class="trip-emoji">🇲🇽</div>
                 <div class="trip-info">
-                    <div class="trip-title">Mexico</div>
-                    <div class="trip-dates">Coming soon</div>
-                    <div class="trip-description">Details TBD</div>
+                    <div class="trip-title">Mexico – Yucatán</div>
+                    <div class="trip-dates">Dates TBD</div>
+                    <div class="trip-description">Yucatán Peninsula</div>
                 </div>
                 <div class="trip-arrow">→</div>
             </a>
