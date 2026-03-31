@@ -495,6 +495,122 @@
             padding: 3px 8px;
             border-radius: 4px;
         }
+
+        /* Trip Overview Timeline */
+        .trip-overview {
+            background: var(--warm-white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .trip-overview h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--deep-green);
+            margin-bottom: 20px;
+        }
+
+        .overview-timeline {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 16px;
+        }
+
+        .overview-day {
+            flex: 1;
+            text-align: center;
+            padding: 8px 2px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            min-width: 0;
+        }
+
+        .overview-day.sofia { background: #2D4739; }
+        .overview-day.plovdiv { background: #4A7C59; }
+        .overview-day.bucharest { background: #C4785B; }
+        .overview-day.brasov { background: #A65D45; }
+        .overview-day.veliko { background: #5B8A72; }
+        .overview-day.travel { background: #8B8680; }
+
+        .overview-day .day-label {
+            display: block;
+            font-size: 10px;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .overview-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--soft-gray);
+        }
+
+        .overview-legend span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        /* Day breakdown badges */
+        .day-breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .day-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .day-badge.arrive {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .day-badge.full {
+            background: #E3F2FD;
+            color: #1565C0;
+        }
+
+        .day-badge.depart {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .day-badge.travel {
+            background: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        @media (max-width: 600px) {
+            .overview-day {
+                font-size: 9px;
+                padding: 6px 1px;
+            }
+            .overview-day .day-label {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -592,6 +708,38 @@
             </div>
         </section>
 
+        <!-- Trip Overview Timeline -->
+        <div class="trip-overview">
+            <h3>📅 Trip at a Glance</h3>
+            <div class="overview-timeline">
+                <div class="overview-day travel">1<span class="day-label">Wed</span></div>
+                <div class="overview-day sofia">2<span class="day-label">Thu</span></div>
+                <div class="overview-day sofia">3<span class="day-label">Fri</span></div>
+                <div class="overview-day sofia">4<span class="day-label">Sat</span></div>
+                <div class="overview-day plovdiv">5<span class="day-label">Sun</span></div>
+                <div class="overview-day plovdiv">6<span class="day-label">Mon</span></div>
+                <div class="overview-day plovdiv">7<span class="day-label">Tue</span></div>
+                <div class="overview-day bucharest">8<span class="day-label">Wed</span></div>
+                <div class="overview-day bucharest">9<span class="day-label">Thu</span></div>
+                <div class="overview-day bucharest">10<span class="day-label">Fri</span></div>
+                <div class="overview-day brasov">11<span class="day-label">Sat</span></div>
+                <div class="overview-day brasov">12<span class="day-label">Sun</span></div>
+                <div class="overview-day veliko">13<span class="day-label">Mon</span></div>
+                <div class="overview-day veliko">14<span class="day-label">Tue</span></div>
+                <div class="overview-day sofia">15<span class="day-label">Wed</span></div>
+                <div class="overview-day sofia">16<span class="day-label">Thu</span></div>
+                <div class="overview-day travel">17<span class="day-label">Fri</span></div>
+            </div>
+            <div class="overview-legend">
+                <span><div class="legend-dot" style="background: #8B8680;"></div> Travel</span>
+                <span><div class="legend-dot" style="background: #2D4739;"></div> Sofia (5 nights)</span>
+                <span><div class="legend-dot" style="background: #4A7C59;"></div> Plovdiv (3 nights)</span>
+                <span><div class="legend-dot" style="background: #C4785B;"></div> Bucharest (3 nights)</span>
+                <span><div class="legend-dot" style="background: #A65D45;"></div> Brașov (2 nights)</span>
+                <span><div class="legend-dot" style="background: #5B8A72;"></div> V. Tarnovo (2 nights)</span>
+            </div>
+        </div>
+
         <section>
             <h2 class="section-title">Day by Day</h2>
             
@@ -617,17 +765,22 @@
                 <div class="day-block">
                     <div class="day-date">
                         <div class="day-num">Apr 2–5</div>
-                        <div class="day-weekday">Wed–Sat</div>
+                        <div class="day-weekday">Thu–Sun</div>
                     </div>
                     <div class="day-content">
                         <div class="day-card">
                             <div class="location-tag">🇧🇬 Sofia, Bulgaria</div>
                             <div class="card-title">Hotel Via Serdika <a href="https://www.google.com/maps/search/Hotel+Via+Serdika+Sofia+Bulgaria" target="_blank" style="color: var(--terracotta); text-decoration: none; font-size: 0.8em;">📍</a></div>
                             <div class="card-detail">April 2–5 • <strong>3 nights</strong></div>
+                            <div class="day-breakdown">
+                                <span class="day-badge arrive">✈️ Arrive Thu 2pm</span>
+                                <span class="day-badge full">📅 2 full days (Fri–Sat)</span>
+                                <span class="day-badge depart">🚌 Depart Sun 10am</span>
+                            </div>
                             <div style="margin-top: 16px; padding: 12px 14px; background: linear-gradient(135deg, #2D4739 0%, #3D5A49 100%); border-radius: 8px; color: white;">
                                 <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.8; margin-bottom: 4px;">🎭 Confirmed Event</div>
                                 <div style="font-weight: 600; font-size: 15px;">Madama Butterfly</div>
-                                <div style="font-size: 13px; opacity: 0.9;">Sofia Opera and Ballet • Apr 4 @ 7:00pm</div>
+                                <div style="font-size: 13px; opacity: 0.9;">Sofia Opera and Ballet • Sat Apr 4 @ 7:00pm</div>
                                 <div style="font-size: 12px; opacity: 0.8; margin-top: 4px;">Row 2, Seats 34 & 36 • Order #1196706</div>
                             </div>
                         </div>
@@ -653,13 +806,18 @@
                 <div class="day-block">
                     <div class="day-date">
                         <div class="day-num">Apr 5–8</div>
-                        <div class="day-weekday">Sat–Tue</div>
+                        <div class="day-weekday">Sun–Wed</div>
                     </div>
                     <div class="day-content">
                         <div class="day-card">
                             <div class="location-tag">🇧🇬 Plovdiv, Bulgaria</div>
                             <div class="card-title">Plovdiv City Center Hotel <a href="https://www.google.com/maps/search/Plovdiv+City+Center+Hotel+Bulgaria" target="_blank" style="color: var(--terracotta); text-decoration: none; font-size: 0.8em;">📍</a></div>
                             <div class="card-detail">April 5–8 • <strong>3 nights</strong></div>
+                            <div class="day-breakdown">
+                                <span class="day-badge arrive">🚌 Arrive Sun ~noon</span>
+                                <span class="day-badge full">📅 2 full days (Mon–Tue)</span>
+                                <span class="day-badge depart">🚐 Depart Wed 10am</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -671,7 +829,7 @@
                         <div class="transport-icon">🚐</div>
                         <div class="transport-info">
                             <div class="transport-route">Plovdiv → Bucharest</div>
-                            <div class="transport-date">📅 Tuesday, April 8 • Depart 10:00 AM</div>
+                            <div class="transport-date">📅 Wednesday, April 8 • Depart 10:00 AM</div>
                             <div class="transport-meta">Private driver • ~5h 20min • Door-to-door • Arrives ~3:35pm</div>
                             <div class="transport-meta" style="font-size: 11px; margin-top: 4px; color: var(--deep-green); font-weight: 500;">✓ Daytrip Booked • Ref: G4U5WMK1 • €343 prepaid</div>
                         </div>
@@ -683,7 +841,7 @@
                 <div class="day-block">
                     <div class="day-date">
                         <div class="day-num">Apr 8–11</div>
-                        <div class="day-weekday">Tue–Fri</div>
+                        <div class="day-weekday">Wed–Sat</div>
                     </div>
                     <div class="day-content">
                         <div class="day-card">
@@ -693,6 +851,11 @@
                             <div class="card-detail">Deluxe Queen Studio with River View</div>
                             <div class="card-detail">Self check-in from 4pm • Code sent day-of</div>
                             <div class="confirmation">Confirmation: 6700699169</div>
+                            <div class="day-breakdown">
+                                <span class="day-badge arrive">🚐 Arrive Wed 3:35pm</span>
+                                <span class="day-badge full">📅 2 full days (Thu–Fri)</span>
+                                <span class="day-badge depart">🚂 Depart Sat 9:45am</span>
+                            </div>
                             <div style="margin-top: 16px; padding: 12px 14px; background: linear-gradient(135deg, #722F37 0%, #8B3A42 100%); border-radius: 8px; color: white;">
                                 <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.8; margin-bottom: 4px;">🍷 Confirmed Event</div>
                                 <div style="font-weight: 600; font-size: 15px;">Romanian Wine Tasting at Corks</div>
@@ -710,7 +873,7 @@
                         <div class="transport-icon">🚂</div>
                         <div class="transport-info">
                             <div class="transport-route">Bucharest → Brașov</div>
-                            <div class="transport-date">📅 Friday, April 11 • Depart 9:45 AM → Arrive 12:20 PM</div>
+                            <div class="transport-date">📅 Saturday, April 11 • Depart 9:45 AM → Arrive 12:20 PM</div>
                             <div class="transport-meta">~170 km • 2.5 hrs • Train IR 1621 • 1st Class • Car 3, Seats 83 & 85</div>
                             <div class="transport-meta" style="font-size: 11px; margin-top: 4px; color: var(--deep-green); font-weight: 500;">✓ Booked • Ref: 34702447 • 195.70 lei</div>
                         </div>
@@ -722,7 +885,7 @@
                 <div class="day-block">
                     <div class="day-date">
                         <div class="day-num">Apr 11–13</div>
-                        <div class="day-weekday">Fri–Sun</div>
+                        <div class="day-weekday">Sat–Mon</div>
                     </div>
                     <div class="day-content">
                         <div class="day-card">
@@ -731,6 +894,11 @@
                             <div class="card-detail">April 11–13 • <strong>2 nights</strong></div>
                             <div class="card-detail">Superior Double Room, upper floors</div>
                             <div class="confirmation">Confirmation: 6827214060 • PIN: 6432</div>
+                            <div class="day-breakdown">
+                                <span class="day-badge arrive">🚂 Arrive Sat 12:20pm</span>
+                                <span class="day-badge full">📅 1 full day (Sun)</span>
+                                <span class="day-badge depart">🚂 Depart Mon 6:49am ⚠️</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -742,26 +910,26 @@
                         <div class="transport-icon">🚂</div>
                         <div class="transport-info">
                             <div class="transport-route">Brașov → Bucharest</div>
-                            <div class="transport-date">📅 Sunday, April 13 (morning)</div>
-                            <div class="transport-meta">~170 km • ~2.5 hrs by train</div>
-                            <div class="transport-meta" style="font-size: 11px; margin-top: 4px; color: #C9A227;">Book at cfrcalatori.ro • Frequent departures</div>
+                            <div class="transport-date">📅 Monday, April 13 • Depart 6:49 AM → Arrive 9:04 AM</div>
+                            <div class="transport-meta">~170 km • 2 hrs 15 min • Train IC 538 • 1st Class • Car 1, Seats 44 & 46</div>
+                            <div class="transport-meta" style="font-size: 11px; margin-top: 4px; color: var(--deep-green); font-weight: 500;">✓ Booked • Ref: 34823916 • 223.60 lei</div>
                         </div>
-                        <div class="transport-tag" style="background: #E8F4E8; color: #2E7D32;">🚂 Train</div>
+                        <div class="transport-tag" style="background: var(--deep-green); color: white;">✓ Booked</div>
                     </div>
                 </div>
 
-                <!-- Transport: Bucharest → Veliko Tarnovo (Daytrip) -->
+                <!-- Transport: Bucharest → Veliko Tarnovo (FlixBus) -->
                 <div class="transport-block">
                     <div class="transport-spacer"></div>
                     <div class="transport-card">
-                        <div class="transport-icon">🚐</div>
+                        <div class="transport-icon">🚌</div>
                         <div class="transport-info">
                             <div class="transport-route">Bucharest → Veliko Tarnovo</div>
-                            <div class="transport-date">📅 Sunday, April 13 (afternoon)</div>
-                            <div class="transport-meta">~200 km • ~3 hrs by private driver • Crosses at Ruse border</div>
-                            <div class="transport-meta" style="font-size: 11px; margin-top: 4px; color: #C9A227;">Book at daytrip.com • Optional stops: Ivanovo, Basarbovo</div>
+                            <div class="transport-date">📅 Monday, April 13 • Depart 10:10 AM → Arrive 2:20 PM</div>
+                            <div class="transport-meta">FlixBus Route 983 • From Autogara Militari • Seats 11C & 11D</div>
+                            <div class="transport-meta" style="font-size: 11px; margin-top: 4px; color: var(--deep-green); font-weight: 500;">✓ Booked • Ref: 3338105657 • $40.95</div>
                         </div>
-                        <div class="transport-tag" style="background: #E3F2FD; color: #1565C0;">🚐 Daytrip</div>
+                        <div class="transport-tag" style="background: var(--deep-green); color: white;">✓ Booked</div>
                     </div>
                 </div>
 
@@ -769,7 +937,7 @@
                 <div class="day-block">
                     <div class="day-date">
                         <div class="day-num">Apr 13–15</div>
-                        <div class="day-weekday">Sun–Tue</div>
+                        <div class="day-weekday">Mon–Wed</div>
                     </div>
                     <div class="day-content">
                         <div class="day-card">
@@ -778,6 +946,11 @@
                             <div class="card-detail">April 13–15 • <strong>2 nights</strong></div>
                             <div class="card-detail">Studio with Balcony • Mountain & river views</div>
                             <div class="confirmation">Confirmation: 5886732898 • PIN: 0209</div>
+                            <div class="day-breakdown">
+                                <span class="day-badge arrive">🚌 Arrive Mon 2:20pm</span>
+                                <span class="day-badge full">📅 1 full day (Tue)</span>
+                                <span class="day-badge depart">🚌 Depart Wed 10:50am</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -801,7 +974,7 @@
                 <div class="day-block">
                     <div class="day-date">
                         <div class="day-num">Apr 15–17</div>
-                        <div class="day-weekday">Tue–Thu</div>
+                        <div class="day-weekday">Wed–Fri</div>
                     </div>
                     <div class="day-content">
                         <div class="day-card">
@@ -810,6 +983,11 @@
                             <div class="card-detail">April 15–17 • <strong>2 nights</strong></div>
                             <div class="card-detail">One-Bedroom Deluxe Apartment • Balcony</div>
                             <div class="confirmation">Confirmation: 6949329906 • PIN: 7037</div>
+                            <div class="day-breakdown">
+                                <span class="day-badge arrive">🚌 Arrive Wed ~2:30pm</span>
+                                <span class="day-badge full">📅 1 full day (Thu)</span>
+                                <span class="day-badge depart">✈️ Depart Fri 7am</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -818,7 +996,7 @@
                 <div class="day-block">
                     <div class="day-date">
                         <div class="day-num">Apr 17</div>
-                        <div class="day-weekday">Thursday</div>
+                        <div class="day-weekday">Friday</div>
                     </div>
                     <div class="day-content">
                         <div class="day-card flight">
@@ -856,10 +1034,10 @@
         <!-- Notes -->
         <div class="notes">
             <div class="notes-title">🚂 Transport Plan</div>
-            <p style="margin-bottom: 12px;"><strong>🚌 Bus (2 legs):</strong> ✓ Sofia→Plovdiv BOOKED (Karat-S, Ref: AICZDS, Apr 5 @ 10am, €16.32) • ✓ V. Tarnovo→Sofia BOOKED (Global Biomet, Ref: H1UUIX, Apr 15 @ 10:50am, €27).</p>
-            <p style="margin-bottom: 12px;"><strong>🚐 Daytrip.com (2 legs):</strong> ✓ Plovdiv→Bucharest BOOKED (Ref: G4U5WMK1, €343) • Bucharest→Veliko Tarnovo (~3 hrs, can add sightseeing stops).</p>
-            <p style="margin-bottom: 12px;"><strong>🚂 Trains (2 legs):</strong> ✓ Bucharest→Brașov BOOKED (IR 1621, Ref: 34702447, Apr 11 @ 9:45am, 196 lei) • Brașov→Bucharest (cfrcalatori.ro, ~2.5 hrs).</p>
-            <p><strong>Still to book:</strong> Brașov→Bucharest train + Daytrip Bucharest→V. Tarnovo.</p>
+            <p style="margin-bottom: 12px;"><strong>🚌 Bus (3 legs):</strong> ✓ Sofia→Plovdiv (Karat-S, Ref: AICZDS, Apr 5 @ 10am, €16.32) • ✓ Bucharest→V. Tarnovo (FlixBus, Ref: 3338105657, Apr 13 @ 10:10am, $41) • ✓ V. Tarnovo→Sofia (Global Biomet, Ref: H1UUIX, Apr 15 @ 10:50am, €27).</p>
+            <p style="margin-bottom: 12px;"><strong>🚐 Daytrip (1 leg):</strong> ✓ Plovdiv→Bucharest (Ref: G4U5WMK1, Apr 8 @ 10am, €343).</p>
+            <p style="margin-bottom: 12px;"><strong>🚂 Trains (2 legs):</strong> ✓ Bucharest→Brașov (IR 1621, Ref: 34702447, Apr 11 @ 9:45am, 196 lei) • ✓ Brașov→Bucharest (IC 538, Ref: 34823916, Apr 13 @ 6:49am, 224 lei).</p>
+            <p style="background: linear-gradient(135deg, var(--deep-green) 0%, #3d5c4a 100%); color: white; padding: 12px 16px; border-radius: 8px; margin-top: 12px;"><strong>✅ ALL TRANSPORT BOOKED!</strong></p>
         </div>
 
         <!-- Documents Section -->
@@ -910,6 +1088,16 @@
                         <td style="padding: 12px 16px; font-weight: 500;">🚂 Train Ticket</td>
                         <td style="padding: 12px 16px; color: var(--soft-gray);">Bucharest → Brașov • Apr 11 @ 9:45am • Ref# 34702447 • 196 lei</td>
                         <td style="padding: 12px 16px;"><a href="https://beaverhausenind.com/documents/CFR_Călători_34702447.pdf" target="_blank" style="color: var(--terracotta); text-decoration: none;">View PDF ↗</a></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 16px; font-weight: 500;">🚂 Train Ticket</td>
+                        <td style="padding: 12px 16px; color: var(--soft-gray);">Brașov → Bucharest • Apr 13 @ 6:49am • Ref# 34823916 • 224 lei</td>
+                        <td style="padding: 12px 16px;"><a href="https://beaverhausenind.com/documents/CFR_Ca_la_tori_34823916.pdf" target="_blank" style="color: var(--terracotta); text-decoration: none;">View PDF ↗</a></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 16px; font-weight: 500;">🚌 FlixBus Ticket</td>
+                        <td style="padding: 12px 16px; color: var(--soft-gray);">Bucharest → V. Tarnovo • Apr 13 @ 10:10am • Ref# 3338105657 • $41</td>
+                        <td style="padding: 12px 16px;"><a href="https://beaverhausenind.com/documents/Boarding-Pass-Bucharest-Veliko-Tarnovo-3338105657.pdf" target="_blank" style="color: var(--terracotta); text-decoration: none;">View PDF ↗</a></td>
                     </tr>
                     <tr style="border-bottom: 1px solid var(--border);">
                         <td style="padding: 12px 16px; font-weight: 500;">🏨 Bucharest Hotel</td>
